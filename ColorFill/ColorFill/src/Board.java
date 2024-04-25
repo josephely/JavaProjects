@@ -50,6 +50,19 @@ public class Board extends JPanel{
                 Tile tile = grid[row][col];
                 g.setColor(tile.getColor());
                 g.fillRect(col * squareWidth, row * squareHeight, squareWidth, squareHeight);
+
+                g.setColor(Color.BLACK); // Choose a color that contrasts the tile color
+
+                // Calculate the position to draw the string so it's centered in the tile
+                FontMetrics fm = g.getFontMetrics();
+                String text = tile.getText(); // Assuming Tile class has a method getText() to get the text
+                int textWidth = fm.stringWidth(text);
+                int textHeight = fm.getAscent();
+                int x = col * squareWidth + (squareWidth - textWidth) / 2;
+                int y = row * squareHeight + (squareHeight + textHeight) / 2;
+
+                // Draw the text
+                g.drawString(text, x, y);
             }
         }
     }

@@ -23,4 +23,10 @@ public class Tile  {
             this.isSelected = true;
         }
 
+        public String getText() {
+            if (this.isSelected) return "Yes";
+            else return "No";
+
+        }
+
 }
