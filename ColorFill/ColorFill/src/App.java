@@ -34,8 +34,6 @@ public class App {
 
     public static void initWindow() {
 
-        
-
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JButton redButton = new ColorButton(Color.RED, "Red");
@@ -175,6 +173,7 @@ public class App {
             }
         }
         board.repaint();
+        checkGameOver();
     }
 
     public static void changeColor(Color color) {
@@ -188,23 +187,31 @@ public class App {
     }
 
     public static void checkGameOver() {
-        if (numSelected == 144) {
-            JOptionPane.showMessageDialog(board, "You win!");
+        boolean gameOver = true;
+        for (int i = 0; i < NUM_COLS; i++) {   
+            for (int j = 0; j < NUM_ROWS; j++) {
+                if (board.grid[i][j].getSelected() == false) gameOver = false;
+            }
         }
+        if (gameOver) {
+            JOptionPane.showMessageDialog(window, "You won in " + numTurns + " turns!");
+            System.exit(0);
+        }
+    }
 
+    public static void startGame() {
+        // Initialize and select the first square
+        initWindow();
+        board.grid[0][0].select();
+        numSelected = 1;
+        numTurns = 0;
+        currentColor = board.grid[0][0].getColor();
+        processBoard();
     }
 
 
     public static void main(String[] args) throws Exception {
+        startGame();
 
-        // Initialize and select the first square
-        initWindow();
-        board.grid[0][0].select();
-        numSelected++;
-        currentColor = board.grid[0][0].getColor();
-        processBoard();
-
-
-       
     }
 }
